@@ -19,5 +19,7 @@ p {text-align: center;width:1000px;
 title {text-align: center;width:1000px;
   margin:0 auto;}
 body {text-align: center;width:1000px;
-  margin:0 auto;}
-h3 {background-color: bisque;}
+  margin:0 auto; font-family: verdana; font-size: 18px;}
+h3 {background-color:mediumslateblue;}
+
+
