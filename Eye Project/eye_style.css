@@ -1,0 +1,366 @@
+body {
+    background-image: url('IMG_0081.JPG');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow: hidden;
+    position: relative;
+    animation: changeBackground 20s infinite;
+}
+
+.background-image {
+    background-image: url('IMG_0081.JPG');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    animation: changeBackground 50s infinite;
+}
+
+@keyframes changeBackground {
+    0% {
+        background-image: url('IMG_0081.JPG');
+    }
+    33% {
+        background-image: url('IMG_0080.JPG');
+    }
+    66% {
+        background-image: url('IMG_0068.JPG'); 
+    }
+    100% {
+        background-image: url('IMG_0081.JPG');
+    }
+}
+
+
+.floating-image, .floating-eye {
+    position: absolute;
+    width: 130px;
+    height: auto;
+    z-index: 1;
+    transition: ease-in-out 5s;
+}
+
+h1 {
+    font-family: "Almendra SC", serif;
+    font-size: 80px;
+    font-weight: 400;
+    text-shadow: 0cap 0px 10px rgba(46, 47, 43, 0.5);
+    font-style: normal;
+    color: rgb(204, 204, 204);
+    text-align: center;
+    z-index: 1;
+    margin:20px 0;
+}
+
+p1 {
+    font-family: "Almendra SC", serif;
+    font-size: 25px;
+    font-weight: 10px;
+    text-shadow: 0cap 0px 10px rgba(46, 47, 43, 0.5);
+    font-style: oblique;
+    color: rgb(98, 63, 63);
+    text-align: right;
+    z-index: 1;
+}
+
+p2 {font-family: "Almendra SC", serif;
+    font-size: 15px;
+    font-weight: 10px;
+    text-shadow: 0cap 0px 10px rgba(46, 47, 43, 0.5);
+    font-style: oblique;
+    color: rgb(98, 63, 63);
+    text-align: right;
+    z-index: 1;}
+
+:root {
+	--eyes-x: 0;
+	--eyes-y: 0;
+}
+* {
+	padding: 0;
+	margin: 0;
+	box-sizing: content-box;
+	font-family: 'Istok Web', sans-serif;
+}	
+body {
+	padding: 20px;
+	background: #EEF3F4;
+}
+.title {
+	padding-bottom: 20px;
+	text-align: center;	
+}
+.instruction {
+	padding: 20px 0 5px;
+}
+
+
+@keyframes float {
+    0% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-20px);
+    }
+    100% {
+        transform: translateY(0);
+    }
+}
+
+@keyframes swing {
+	0% {
+		transform: rotate(6deg);
+	}
+	50% {
+		transform: rotate(-3deg);
+	}
+	100% {
+		transform: rotate(6deg);
+	}
+}
+body {
+    background: linear-gradient(179deg, #000, #ccc);
+}
+
+@keyframes egg-animation {
+    0% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes float {
+    0% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-20px);
+    }
+    100% {
+        transform: translateY(0);
+    }
+}
+
+
+.egg1 {
+    width: 300px;
+    height: 420px;
+    background-color: transparent;
+    top: 5;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    opacity: 70%;
+    margin: auto;
+    border-radius: 50% / 54% 54% 46% 46%;
+    position: absolute;
+    box-shadow:
+        0px -3px 0px 5px rgba(255, 255, 255, 1) inset,
+        0px -6px 0px 10px rgba(255, 0, 0, .16) inset,
+        0px -9px 0px 15px rgba(255, 255, 255, 1) inset,
+        0px -12px 0px 20px rgba(255, 0, 0, .22) inset,
+        0px -15px 0px 25px rgba(255, 255, 255, 1) inset,
+        0px -18px 0px 30px rgba(255, 0, 0, .28) inset,
+        0px -21px 0px 35px rgba(255, 255, 255, 1) inset,
+        0px -24px 0px 40px rgba(255, 0, 0, .34) inset,
+        0px -27px 0px 45px rgba(255, 255, 255, 1) inset,
+        0px -30px 0px 50px rgba(255, 0, 0, .4) inset,
+        0px -33px 0px 55px rgba(255, 255, 255, 1) inset,
+        0px -36px 0px 60px rgba(255, 0, 0, .46) inset,
+        0px -39px 0px 65px rgba(255, 255, 255, 1) inset,
+        0px -42px 0px 70px rgba(255, 0, 0, .52) inset,
+        0px -45px 0px 75px rgba(255, 255, 255, 1) inset,
+        0px -48px 0px 80px rgba(255, 0, 0, .58) inset,
+        0px -51px 0px 85px rgba(255, 255, 255, 1) inset,
+        0px -54px 0px 90px rgba(255, 0, 0, .64) inset,
+        0px -57px 0px 95px rgba(255, 255, 255, 1) inset,
+        0px -60px 0px 100px rgba(255, 0, 0, .7) inset,
+        0px -63px 0px 105px rgba(255, 255, 255, 1) inset,
+        0px -66px 0px 110px rgba(255, 0, 0, .76) inset,
+        0px -69px 0px 115px rgba(255, 255, 255, 1) inset,
+        0px -72px 0px 120px rgba(255, 0, 0, .82) inset,
+        0px -75px 0px 125px rgba(255, 255, 255, 1) inset,
+        0px -78px 0px 130px rgba(255, 0, 0, .88) inset,
+        0px -81px 0px 135px rgba(255, 255, 255, 1) inset,
+        0px -84px 0px 140px rgba(255, 0, 0, .94) inset,
+        0px -87px 0px 145px rgba(255, 255, 255, 1) inset,
+        0px -90px 0px 150px rgba(255, 0, 0, 1) inset;
+    animation: egg-animation 4s linear infinite;
+}
+
+.egg2 {
+    /*right*/
+    width: 300px;
+    height: 380px;
+    background-color: transparent;
+    top: 5;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    opacity: 70%;
+    margin: auto;
+    border-radius: 50% / 54% 54% 46% 46%;
+    position: absolute;
+    box-shadow:
+        3px 0px 0px 5px rgba(255, 255, 255, 1) inset,
+        6px 0px 0px 10px rgba(255, 0, 0, .16) inset,
+        9px 0px 0px 15px rgba(255, 255, 255, 1) inset,
+        12px 0px 0px 20px rgba(255, 0, 0, .22) inset,
+        15px 0px 0px 25px rgba(255, 255, 255, 1) inset,
+        18px 0px 0px 30px rgba(255, 0, 0, .28) inset,
+        21px 0px 0px 35px rgba(255, 255, 255, 1) inset,
+        24px 0px 0px 40px rgba(255, 0, 0, .34) inset,
+        27px 0px 0px 45px rgba(255, 255, 255, 1) inset,
+        30px 0px 0px 50px rgba(255, 0, 0, .4) inset,
+        33px 0px 0px 55px rgba(255, 255, 255, 1) inset,
+        36px 0px 0px 60px rgba(255, 0, 0, .46) inset,
+        39px 0px 0px 65px rgba(255, 255, 255, 1) inset,
+        42px 0px 0px 70px rgba(255, 0, 0, .52) inset,
+        45px 0px 0px 75px rgba(255, 255, 255, 1) inset,
+        48px 0px 0px 80px rgba(255, 0, 0, .58) inset,
+        51px 0px 0px 85px rgba(255, 255, 255, 1) inset,
+        54px 0px 0px 90px rgba(255, 0, 0, .64) inset,
+        57px 0px 0px 95px rgba(255, 255, 255, 1) inset,
+        60px 0px 0px 100px rgba(255, 0, 0, .7) inset,
+        63px 0px 0px 105px rgba(255, 255, 255, 1) inset,
+        66px 0px 0px 110px rgba(255, 0, 0, .76) inset,
+        69px 0px 0px 115px rgba(255, 255, 255, 1) inset,
+        72px 0px 0px 120px rgba(255, 0, 0, .82) inset,
+        75px 0px 0px 125px rgba(255, 255, 255, 1) inset,
+        78px 0px 0px 130px rgba(255, 0, 0, .88) inset,
+        81px 0px 0px 135px rgba(255, 255, 255, 1) inset,
+        84px 0px 0px 140px rgba(255, 0, 0, .94) inset,
+        87px 0px 0px 145px rgba(255, 255, 255, 1) inset,
+        90px 0px 0px 150px rgba(255, 0, 0, 1) inset;
+    animation: egg-animation 5s linear 1.5s infinite;
+}
+
+.egg3 {
+    /*down*/
+    width: 300px;
+    height: 450px;
+    background-color: transparent;
+    top: 5;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    opacity: 70%;
+    margin: auto;
+    border-radius: 50% / 54% 54% 46% 46%;
+    position: absolute;
+    box-shadow:
+        0px 3px 0px 5px rgba(255, 255, 255, 1) inset,
+        0px 6px 0px 10px rgba(255, 0, 0, .16) inset,
+        0px 9px 0px 15px rgba(255, 255, 255, 1) inset,
+        0px 12px 0px 20px rgba(255, 0, 0, .22) inset,
+        0px 15px 0px 25px rgba(255, 255, 255, 1) inset,
+        0px 18px 0px 30px rgba(255, 0, 0, .28) inset,
+        0px 21px 0px 35px rgba(255, 255, 255, 1) inset,
+        0px 24px 0px 40px rgba(255, 0, 0, .34) inset,
+        0px 27px 0px 45px rgba(255, 255, 255, 1) inset,
+        0px 30px 0px 50px rgba(255, 0, 0, .4) inset,
+        0px 33px 0px 55px rgba(255, 255, 255, 1) inset,
+        0px 36px 0px 60px rgba(255, 0, 0, .46) inset,
+        0px 39px 0px 65px rgba(255, 255, 255, 1) inset,
+        0px 42px 0px 70px rgba(255, 0, 0, .52) inset,
+        0px 45px 0px 75px rgba(255, 255, 255, 1) inset,
+        0px 48px 0px 80px rgba(255, 0, 0, .58) inset,
+        0px 51px 0px 85px rgba(255, 255, 255, 1) inset,
+        0px 54px 0px 90px rgba(255, 0, 0, .64) inset,
+        0px 57px 0px 95px rgba(255, 255, 255, 1) inset,
+        0px 60px 0px 100px rgba(255, 0, 0, .7) inset,
+        0px 63px 0px 105px rgba(255, 255, 255, 1) inset,
+        0px 66px 0px 110px rgba(255, 0, 0, .76) inset,
+        0px 69px 0px 115px rgba(255, 255, 255, 1) inset,
+        0px 72px 0px 120px rgba(255, 0, 0, .82) inset,
+        0px 75px 0px 125px rgba(255, 255, 255, 1) inset,
+        0px 78px 0px 130px rgba(255, 0, 0, .88) inset,
+        0px 81px 0px 135px rgba(255, 255, 255, 1) inset,
+        0px 84px 0px 140px rgba(255, 0, 0, .94) inset,
+        0px 87px 0px 145px rgba(255, 255, 255, 1) inset,
+        0px 90px 0px 150px rgba(255, 0, 0, 1) inset;
+    animation: egg-animation 5s linear 3s infinite;
+}
+
+.egg4 {
+    /*left*/
+    width: 300px;
+    height: 400px;
+    background-color: transparent;
+    top: 5;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    opacity: 70%;
+    margin: auto;
+    border-radius: 50% / 54% 54% 46% 46%;
+    position: absolute;
+    box-shadow:
+        -3px 0px 0px 5px rgba(255, 255, 255, 1) inset,
+        -6px 0px 0px 10px rgba(255, 0, 0, .16) inset,
+        -9px 0px 0px 15px rgba(255, 255, 255, 1) inset,
+        -12px 0px 0px 20px rgba(255, 0, 0, .22) inset,
+        -15px 0px 0px 25px rgba(255, 255, 255, 1) inset,
+        -18px 0px 0px 30px rgba(255, 0, 0, .28) inset,
+        -21px 0px 0px 35px rgba(255, 255, 255, 1) inset,
+        -24px 0px 0px 40px rgba(255, 0, 0, .34) inset,
+        -27px 0px 0px 45px rgba(255, 255, 255, 1) inset,
+        -30px 0px 0px 50px rgba(255, 0, 0, .4) inset,
+        -33px 0px 0px 55px rgba(255, 255, 255, 1) inset,
+        -36px 0px 0px 60px rgba(255, 0, 0, .46) inset,
+        -39px 0px 0px 65px rgba(255, 255, 255, 1) inset,
+        -42px 0px 0px 70px rgba(255, 0, 0, .52) inset,
+        -45px 0px 0px 75px rgba(255, 255, 255, 1) inset,
+        -48px 0px 0px 80px rgba(255, 0, 0, .58) inset,
+        -51px 0px 0px 85px rgba(255, 255, 255, 1) inset,
+        -54px 0px 0px 90px rgba(255, 0, 0, .64) inset,
+        -57px 0px 0px 95px rgba(255, 255, 255, 1) inset,
+        -60px 0px 0px 100px rgba(255, 0, 0, .7) inset,
+        -63px 0px 0px 105px rgba(255, 255, 255, 1) inset,
+        -66px 0px 0px 110px rgba(255, 0, 0, .76) inset,
+        -69px 0px 0px 115px rgba(255, 255, 255, 1) inset,
+        -72px 0px 0px 120px rgba(255, 0, 0, .82) inset,
+        -75px 0px 0px 125px rgba(255, 255, 255, 1) inset,
+        -78px 0px 0px 130px rgba(255, 0, 0, .88) inset,
+        -81px 0px 0px 135px rgba(255, 255, 255, 1) inset,
+        -84px 0px 0px 140px rgba(255, 0, 0, .94) inset,
+        -87px 0px 0px 145px rgba(255, 255, 255, 1) inset,
+        -90px 0px 0px 150px rgba(255, 0, 0, 1) inset;
+    animation: egg-animation 4s linear 2s infinite;
+}
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: content-box;
+    font-family: 'Istok Web', sans-serif;
+}
+
+.title {
+    padding-bottom: 20px;
+    text-align: center;
+}
+
+.instruction {
+    padding: 20px 0 5px;
+}
