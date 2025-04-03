@@ -1,73 +1,60 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="en">
 <head>
-    <title> Box Turtle Press </title>
-    <link href="style.css" rel="stylesheet">
+  <meta charset="UTF-8">
+  <title>Tiny Apartment Library</title>
+  <link rel="stylesheet" href="./style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Almendra+SC&family=Jacquard+12+Charted&display=swap" rel="stylesheet">
+
 </head>
-
+<button class="welcome-button">Welcome In</button>
 <body>
-    <h1> Box Turtle Press</h1>
-    <h2> Welcome to Mudfish!</h2>
-    <img src="01_TurtleLogo copy.png" alt="boxturtlepress_logo" width="86.6" , height="55.4" />
 
-    <div>
-        <h2>
-            About Mudfish:
-        </h2>
+    
+  <h1>Tiny Apartment Library</h1>
+  <aside class="sidebar">
 
-        <h4>
-            Mudfish is a journal of poetry, art, and fiction
-        </h4>
-        <p1>It takes its title from the storyteller's stool in Nigerian art.
-            In totally diverse ways, the poems each tell a story.
-            Mudfish has featured work from the best established and emerging artists and poets –
-            including John Ashbery, Charles Simic and Frank Stella – since it burst onto the poetry scene in 1984.
-            The journal reflects the passionate, edgy, intimate voice of the 21st century.
-            The Mudfish Individual Poet Series are companion volumes, each showcasing the work of a single Mudfish poet.
-        </p1>
-        <div>
-            <br>
-            <a href="#p2">About Founder</a>
-        </div>
-    </div>
+    <form id="add-record-form">
+      <label for="book-title">Book Title:</label>
+      <input type="text" id="book-title" name="book-title" required>
+      
+      <label for="book-category">Category:</label>
+      <select id="book-category" name="book-category" required>
+        <option value="Fiction">Fiction</option>
+        <option value="Theory">Theory</option>
+        <option value="Art">Art Books</option>
+        <option value="Philosophy">Philosophy</option>
+        <option value="Poetry">Poetry</option>
+        <option value="Other">Other</option>
+      </select>
+      
+      <button type="submit">Add to Library</button>
+    </form>
+    <h2>Filters</h2>
+    <select name="data-category" id="data-category">
+  
+      <option value="All">Show All</option>
+      <option value="Fiction">Fiction</option>
+      <option value="Theory">Theory</option>
+      <option value="Art">Art Books</option>
+      <option value="Philosophy">Philosophy</option>
+      <option value="Poetry">Poetry</option>
+      <option value="Other">Other</option>
+    </select>
 
-    <div>
+<main class="content">
+  
 
-        <h3> <u>18th Mudfish Poetry Prize Deadline Extended to March 1st!</u></h3>
-
-        <strong> Submission Requirements: </strong>
-
-        <ul>
-            <li> Cover Letter </li>
-            <li> 3 poems for $20, each extra poem for $3 </li>
-            <li> Email (mudfishmag@aol.com) or Snail Mail (184 Franklin Ave, New York NY 10003)</li>
-        </ul>
+  <section class="archive-grid" id="archive-grid">
+    <!-- Books will be loaded here dynamically -->
+  </section>
 
 
-        <p><em> PLEASE DO NOT INCLUDE PERSONAL INFORMATION ON YOUR POEM PAGES </em></p>
+</main>
+<script src="./library.js"></script>
 
-        Learn more about the submission and other relevent information please visit:
-        <a href="https://mudfish.org/" target="_blank">Box Turtle Press</a>
-    </div>
-    <br>
-    <p2>
-        After receiving a Guggenheim Fellowship in 1974-75 on the heels of the publication of her first book of poems,
-        <em> Mink Coat </em>(Holt, Rinehart & Winston, 1973),
-        Jill Hoffman began to write fiction, as well as poetry.
-        Her first novel, <em>Jilted</em>, was published by Simon & Schuster in 1993, and translated into Japanese.
-        Since then she has written two novels, in search of an agent, and publisher, and is the Founding Editor of
-        Mudfish,
-        a journal of art and poetry, and Mudfish Individual Poets Series.
-        Mudfish #16 and Mudfish Individual Poets series #6 are soon to go to press.
-        A second book of poems, <em> Black Diaries </em>, was published by Box Turtle Press in 2000.
-        In addition, her poems have been published in The New Yorker and many other magazines.
-        She has a B.A. from Bennington College, a M.A. from Columbia University, and a Ph.D.
-        from Cornell University. She has taught at Bard, Barnard, Columbia, Brooklyn College, the New School,
-        and other academic institutions. Presently she teaches poetry and fiction writing in her home in New York City.
-        She is also a figurative, expressionist painter in oils.
-    </p2>
 
 </body>
-
 </html>
