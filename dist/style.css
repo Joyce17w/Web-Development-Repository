@@ -1,0 +1,319 @@
+body {
+  font-family: "Almendra SC", serif;
+  font-size: 20px;
+  text-align: center;
+  margin: auto;
+  padding: 10px;
+  min-height: 100vh;
+  background: linear-gradient(150deg, #c27f4e 0%, #6b835e 80%);
+  background-attachment: fixed;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: #591106;
+}
+
+.enter {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: "Almendra SC", serif;
+  font-size: 2rem;
+  padding: 1rem 2rem;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  z-index: 1000;
+  background: linear-gradient(150deg, #c27f4e 0%, #6b835e 80%);
+}
+
+.enter:hover {
+  background: linear-gradient(150deg, #c27f4e 0%, #6b835e 80%);
+  box-shadow: 0 0 20px 5px rgba(42, 42, 43, 0.5);
+}
+
+.book-title[contenteditable="true"],
+.detail-row input,
+.detail-row select,
+.category-select,
+.author-input,
+.publisher-input,
+.isbn-input,
+.year-input {
+  font-family: "Almendra SC", serif !important;
+  border: none;
+  font-size: 20px;
+  width: 100%;
+  padding: 5px;
+  color: #591106;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+  background-color: transparent;
+}
+
+[contenteditable="true"] {
+  font-family: "Almendra SC", serif; 
+  font-size: 22px;
+  font-weight: bolder;
+  color: #591106; 
+  border: 1px dashed #a1816c; 
+  padding: 5px; 
+  background-color: rgba(245, 245, 245, 0.5);
+  border-radius: 5px; 
+  outline: none;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+[contenteditable="true"]:focus {
+  background-color: rgba(218, 218, 135, 0.8); 
+  border-color: #591106;
+}
+
+.detail-row input,
+.detail-row select,
+.category-select,
+.author-input,
+.publisher-input,
+.isbn-input,
+.year-input {
+  font-family: "Almendra SC", serif !important;
+  font-size: 20px;
+  color: #591106;
+  border: 1px solid #a1816c;
+  padding: 8px;
+  margin-left: 20px;
+  background-color: rgba(245, 245, 245, 0.5);
+  border-radius: 5px; 
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+  outline: none;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.detail-row input:focus,
+.detail-row select:focus {
+  background-color: rgba(244, 229, 176, 0.8);
+  border-color: #591106;
+}
+
+
+.book-title {
+  font-size: 30px;
+  font-weight: bold;
+  color: #591106; 
+  text-decoration: underline;
+  margin-bottom: 15px;
+}
+
+
+.detail-row {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+
+}
+
+
+.book-details {
+  display: none;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+  margin-top: 15px;
+}
+
+.archive-record.active .book-details {
+  display: block;
+  opacity: 1;
+}
+
+.page {
+  display: none;
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+  width: 100%;
+}
+
+.page.visible {
+  display: block;
+  opacity: 1;
+}
+
+.main {
+  width: 90%;
+  font-family: 'Almendra SC', serif;
+  max-width: 80%;
+  margin: 20px auto;
+  padding: 30px;
+  background-color:transparent;
+}
+
+#add-record-form {
+  font-family: 'Almendra SC', serif;
+  margin: 30px auto;
+  padding: 25px;
+  background:transparent;
+  box-shadow: #1c1413;
+  width: 100%;
+  max-width: 500px;
+  box-shadow: 0 2px 8px rgba(89, 17, 6, 0.1);
+}
+
+#add-record-form label {
+  display: block;
+  font-family: 'Almendra SC', serif;
+  margin: 10px 0 5px;
+  border: none;
+  font-size: 20px;
+  background-color: transparent;
+}
+
+#add-record-form input,
+#add-record-form select {
+  font-family: 'Almendra SC', serif;
+  font-size: 18px;
+  color: #591106;
+  border: 1px solid #a1816c; 
+  padding: 10px;
+  margin-bottom: 15px;
+  background-color: rgba(245, 245, 245, 0.5);
+  border-radius: 5px;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+  outline: none;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+#add-record-form input:focus,
+#add-record-form select:focus {
+  background-color: rgba(244, 229, 176, 0.8); 
+  border-color: #591106;
+}
+
+#add-record-form input:hover {
+  background-color: rgba(244, 229, 176, 0.8); 
+  border-color: #7a1a0a; 
+  box-shadow: 0 2px 8px rgba(89, 17, 6, 0.2);
+  transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+#add-record-form select:hover {
+  background-color: rgba(244, 229, 176, 0.8);
+  border-color: #7a1a0a;
+  box-shadow: 0 2px 8px rgba(89, 17, 6, 0.2);
+  transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+
+#add-record-form button {
+  padding: 10px 20px;
+  background: #591106;
+  color: #f5f5f5;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-family: 'Almendra SC', serif;
+  font-size: 18px;
+  margin-top: 10px;
+  transition: background 0.3s ease;
+}
+
+#add-record-form button:hover {
+  background: #7a1a0a;
+}
+
+#data-category {
+  font-family: 'Almendra SC', serif;
+  font-size: 18px;
+  height: fit-content;
+  color: #591106;
+  border: 1px solid #a1816c;
+  padding: 10px;
+  margin-bottom: 15px; 
+  background-color: rgba(245, 245, 245, 0.5);
+  border-radius: 5px; 
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+  outline: none; 
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+#data-category:hover {
+  background-color: rgba(244, 229, 176, 0.8);
+  border-color: #7a1a0a;
+  box-shadow: 0 2px 8px rgba(89, 17, 6, 0.2); 
+  transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.archive-grid {
+  display: grid;
+  border: none;
+  font-family: 'Almendra SC', serif;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+  width: 100%;
+  margin: 30px 0;
+  padding: 0;
+}
+
+.archive-record {
+  font-family: 'Almendra SC', serif;
+  padding: 20px;
+  background: transparent;
+  border-radius: 8px;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.archive-record.active {
+  border: 1px solid #591106;
+  box-shadow: 0 5px 15px rgba(89, 17, 6, 0.2);
+}
+
+.archive-record:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 5px 15px rgba(89, 17, 6, 0.2);
+}
+
+h1 {
+  color: #591106;
+  font-family: 'Almendra SC', serif;
+  font-size: 70px;
+  text-decoration: underline overline;
+  margin: 0 0 20px;
+}
+
+h2 {
+  color: #591106;
+  font-size: 1.5rem;
+  font-weight: lighter;
+  text-decoration: underline;
+  margin: 30px 0 15px;
+}
+
+.delete-btn {
+  background-color: transparent;
+  border: none;
+  color: #591106;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.delete-btn:hover {
+  color: #7a1a0a;
+}
+
+
+@media (max-width: 768px) {
+  body {
+    font-size: 24px;
+  }
+  
+  .main {
+    width: 95%;
+    padding: 15px;
+  }
+  
+  .archive-grid {
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="A digital catalog for your personal book collection">
+    <title>Tiny Apartment Library - Your Personal Book Catalog</title>
+    <link rel="stylesheet" href="./style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Almendra+SC&family=Jacquard+12+Charted&display=swap" rel="stylesheet">
+  </head>
+<body>
+  <a href="#fake" class="enter">WELCOME IN</a>
+  <div class="page">
+    <div class="main">
+      <h1>Tiny Apartment Library</h1>
+      <form id="add-record-form">
+        <label for="book-title">Book Title:</label>
+        <input type="text" id="book-title" name="book-title" required>
+        
+        <label for="book-category">Category:</label>
+        <select id="book-category" name="book-category" required>
+          <option value="Fiction">Fiction</option>
+          <option value="Theory">Theory</option>
+          <option value="Art">Art Books</option>
+          <option value="Philosophy">Philosophy</option>
+          <option value="Poetry">Poetry</option>
+          <option value="Other">Other</option>
+        </select>
+        
+        <button type="submit">Add to Library</button>
+      </form>
+      <h2>Filters</h2>
+      <select name="data-category" id="data-category">
+        <option value="All">Show All</option>
+        <option value="Fiction">Fiction</option>
+        <option value="Theory">Theory</option>
+        <option value="Art">Art Books</option>
+        <option value="Philosophy">Philosophy</option>
+        <option value="Poetry">Poetry</option>
+        <option value="Other">Other</option>
+      </select>
+  
+      <main class="content">
+    
+      <section class="archive-grid" id="archive-grid"></section>
+  
+      </main>
+    </div>
+  </div>
+
+  <script src="./library.js"></script>
+</body>
+
+</html>
