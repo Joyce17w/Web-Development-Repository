@@ -1,0 +1,419 @@
+@import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+
+body {
+    font-family: 'VT323', 'Courier New', monospace;
+    background-color: #f5e9d9;
+    color: #5a3921;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.sidebar {
+    position: fixed;
+    right: 20px;
+    top: 20px;
+    width: 250px;
+    background-color: #f0e0c0;
+    border: 3px solid #d4a76a;
+    border-radius: 10px;
+    padding: 15px;
+    box-shadow: 5px 5px 0px #d4a76a;
+    z-index: 100;
+}
+
+.sidebar-header {
+    font-size: 25px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.toggle-dates-btn {
+    background: none;
+    border: none;
+    font-size: 1.8rem;
+    cursor: pointer;
+    color: #8b5a2b;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    transform-origin: center;
+    padding: 0;
+}
+
+.toggle-dates-btn:hover {
+    transform: scale(1.2);
+}
+
+.toggle-dates-btn.collapsed {
+    transform: rotate(0deg);
+}
+
+.toggle-dates-btn.expanded {
+    transform: rotate(180deg);
+}
+.add-date-btn {
+    background-color: #d4a76a;
+    border: none;
+    border-radius: 5px;
+    padding: 8px 12px;
+    font-family: 'VT323', monospace;
+    font-size: 1rem;
+    color: white;
+    cursor: pointer;
+    margin-bottom: 10px;
+    width: 100%;
+    transition: all 0.2s;
+}
+
+.add-date-btn:hover {
+    background-color: #f9c266;
+}
+
+.log-actions {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.dates-content {
+    max-height: 500px;
+    opacity: 1;
+    overflow: hidden;
+    transition: max-height 0.3s ease, opacity 0.3s ease;
+}
+
+.dates-content.collapsed {
+    max-height: 0;
+    opacity: 0;
+}
+
+.add-date-btn {
+    background-color: #d4a76a;
+    border: none;
+    border-radius: 5px;
+    padding: 8px 12px;
+    font-family: 'VT323', monospace;
+    font-size: 1rem;
+    color: white;
+    cursor: pointer;
+    margin-bottom: 10px;
+    width: 100%;
+    transition: all 0.2s;
+}
+
+.add-date-btn:hover {
+    background-color: #f9c266;
+}
+
+.date-form {
+    display: none;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 15px;
+}
+
+.date-form.show {
+    display: flex;
+}
+
+.dates-content {
+    overflow: hidden;
+    transition: max-height 0.3s ease, opacity 0.2s ease;
+    max-height: 500px; /* Adjust based on your content */
+    opacity: 1;
+}
+
+.dates-content.collapsed {
+    max-height: 0;
+    opacity: 0;
+}
+
+.sidebar-header h3 {
+    transition: height 0.3s ease;
+    margin: 0;
+    color: #8b5a2b;
+}
+
+.add-date-btn {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: #8b5a2b;
+}
+
+.date-form {
+    display: none;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 15px;
+}
+
+
+.date-form input, .date-form button {
+    padding: 8px;
+    border: 1px solid #d4a76a;
+    border-radius: 5px;
+    font-family: 'VT323', monospace;
+    font-size: 1rem;
+}
+
+.date-form button {
+    background-color: #d4a76a;
+    color: white;
+    cursor: pointer;
+}
+
+.dates-list {
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.date-item {
+    font-size: 18px;
+    background-color: white;
+    justify-content: space-between;
+    padding: 10px;
+    margin-bottom: 8px;
+    border-radius: 5px;
+    border-left: 4px solid #f9c266;
+    position: relative;
+}
+
+.date-item h4 {
+    margin: 0;
+    display: inline-flex;
+    align-items: center;
+    flex-grow: 1;
+    gap:5px;
+    color: #5a3921;
+}
+
+.date-item p {
+    display: inline-block;
+    margin: 0;
+    color: #8b5a2b;
+    font-size: 0.9rem;
+}
+
+.delete-date {
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    background: none;
+    border: none;
+    color: #ff6b6b;
+    cursor: pointer;
+}
+.delete-date:hover {
+    color: #ff3b3b;
+}
+
+.date-item-controls {
+    display: inline-flex;
+    gap: 5px;
+    margin-left: 8px;
+}
+
+.edit-date {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #7a6ba9;
+    font-size: 1rem;
+    padding: 0;
+    transition: all 0.2s;
+}
+
+.edit-date:hover {
+    color: #5a3921;
+    transform: scale(1.1);
+}
+
+/* Form button adjustments */
+.date-form button:first-of-type {
+    background-color: #8b5a2b;
+}
+
+.date-form button:first-of-type:hover {
+    background-color: #a06d3a;
+}
+
+
+@media (max-width: 1000px) {
+    body {
+        padding-right: 290px;
+    }
+    .sidebar {
+        position: absolute;
+        right: 20px;
+        top: auto;
+        bottom: 20px;
+    }
+}
+
+
+h1 {
+    text-align: center;
+    color: #8b5a2b;
+    text-shadow: 2px 2px 0px #d4a76a;
+    font-size: 32px;
+}
+
+.puppy-logo {
+    display: block;
+    margin: 0 auto;
+    width: 350px;
+    height: auto;
+}
+
+
+.alarm-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 15px 0;
+    padding: 10px;
+    background-color: #f0e0c0;
+    border-radius: 5px;
+    border: 2px solid #d4a76a;
+}
+
+.alarm-display {
+    font-family: 'VT323', monospace;
+    font-size: 1.2rem;
+    color: #8b5a2b;
+}
+
+.alarm-btn {
+    background-color: #d4a76a;
+    border: none;
+    border-radius: 5px;
+    padding: 8px 12px;
+    font-family: 'VT323', monospace;
+    font-size: 1rem;
+    color: #5a3921;
+    cursor: pointer;
+    box-shadow: 2px 2px 0px #8b5a2b;
+    transition: all 0.2s;
+}
+
+.alarm-btn:hover {
+    background-color: #f9c266;
+    transform: translate(1px, 1px);
+    box-shadow: 1px 1px 0px #8b5a2b;
+}
+
+.alarm-btn:active {
+    transform: translate(2px, 2px);
+    box-shadow: none;
+}
+
+/* Alarm active state */
+.alarm-active {
+    background-color: #ff9eb5;
+    color: white;
+}
+
+/* Alarm ringing animation */
+@keyframes ring {
+    0% { transform: rotate(-5deg); }
+    50% { transform: rotate(5deg); }
+    100% { transform: rotate(-5deg); }
+}
+
+.ringing {
+    animation: ring 0.2s infinite;
+    background-color: #ff6b6b;
+}
+
+
+.schedule-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.activity-btn {
+    background-color: #d4a76a;
+    border: none;
+    border-radius: 5px;
+    padding: 15px 10px;
+    font-family: 'VT323', 'Courier New', monospace;
+    font-size: 25px;
+    color: #5a3921;
+    cursor: pointer;
+    box-shadow: 3px 3px 0px #8b5a2b;
+    transition: all 0.2s;
+    text-align: center;
+}
+
+.activity-btn:hover {
+    background-color: #f9c266;
+    transform: translate(1px, 1px);
+    box-shadow: 2px 2px 0px #8b5a2b;
+}
+
+.activity-btn:active {
+    transform: translate(3px, 3px);
+    box-shadow: none;
+}
+
+.log-container {
+    background-color: #f0e0c0;
+    border: 3px solid #d4a76a;
+    border-radius: 5px;
+    padding: 15px;
+    margin-top: 20px;
+    box-shadow: 5px 5px 0px #d4a76a;
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.log-title {
+    font-weight: bold;
+    margin-bottom: 10px;
+    font-size: 18px;
+    position: sticky;
+    top: 0;
+    background-color: #f0e0c0;
+    padding: 5px 0;
+}
+
+.log-entry {
+    margin-bottom: 10px;
+    padding: 5px;
+    border-bottom: 1px dotted #d4a76a;
+}
+
+.time-display {
+    font-size: 20px;
+    color: #8b5a2b;
+    margin-top: 10px;
+    text-align: center;
+    background-color: #f0e0c0;
+    padding: 8px;
+    border-radius: 5px;
+    border: 2px solid #d4a76a;
+}
+
+.activity-btn[style*="background-color: #8b5a2b"]:hover {
+    background-color: #a06d3a !important;
+}
+.activity-btn[style*="background-color: #5a3921"]:hover {
+    background-color: #7a4d2d !important;
+}
+
+@media (max-width: 600px) {
+    .schedule-grid {
+        grid-template-columns: 1fr;
+    }
+}

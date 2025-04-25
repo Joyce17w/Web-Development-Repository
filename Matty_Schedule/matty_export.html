@@ -1,0 +1,88 @@
+const htmlContent = `
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <title>Matty's Activity Sheet - ${dateString}</title>
+        <style>
+            @import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+            body {
+                font-family: 'VT323', monospace;
+                background-color: #f5e9d9;
+                color: #5a3921;
+                padding: 20px;
+                font-size: 20px;
+            }
+            h1 {
+                text-align: center;
+                color: #8b5a2b;
+                text-shadow: 2px 2px 0px #d4a76a;
+                font-size: 2.5rem;
+                margin-bottom: 30px;
+            }
+            .log-container {
+                background-color: #f0e0c0;
+                border: 3px solid #d4a76a;
+                border-radius: 5px;
+                padding: 15px;
+                box-shadow: 5px 5px 0px #d4a76a;
+                overflow-x: auto;
+            }
+            table {
+                width: 100%;
+                border-collapse: collapse;
+            }
+            th {
+                background-color: #d4a76a;
+                color: #5a3921;
+                padding: 10px;
+                text-align: left;
+            }
+            td {
+                padding: 8px 12px;
+                border-bottom: 1px dotted #d4a76a;
+                vertical-align: top;
+            }
+            tr:nth-child(even) {
+                background-color: #f8f0e0;
+            }
+            .date-header {
+                text-align: center;
+                font-weight: bold;
+                margin: 20px 0 10px;
+                font-size: 1.3rem;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>Matty's Activity Log</h1>
+        <div class="log-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Activity</th>
+                        <th colspan="${entries.length}">Times & Durations</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    ${tableContent}
+                </tbody>
+            </table>
+        </div>
+    </body>
+    </html>
+    `;
+
+    const blob = new Blob([htmlContent], { type: 'text/html' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `Matty_Activity_Sheet_${dateString}.html`;
+    a.textContent = 'Download Activity Sheet';
+    a.style.display = 'block';
+    a.style.textAlign = 'center';
+    a.style.marginTop = '20px';
+    a.style.fontSize = '20px';
+    a.style.color = '#8b5a2b';
+    a.style.textDecoration = 'none';
+    a.style.backgroundColor = '#f0e0c0';
+}

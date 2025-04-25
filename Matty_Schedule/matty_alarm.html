@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>A Day in Matty's Life</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="matty_style.css">
+</head>
+<body>
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <title>A Day in Matty's Life</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="matty_style.css">
+    </head>
+    <body>
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <h3>📅 Important Dates</h3>
+                <button class="toggle-dates-btn" id="toggle-dates-btn">+</button>
+            </div>
+            <div class="dates-content" id="dates-content">
+                <button class="add-date-btn" id="add-date-btn">+ Add Date</button>
+                <div class="date-form" id="date-form" style="display: none;">
+                    <input type="text" id="date-title" placeholder="Event (e.g., Vet Visit)" required>
+                    <input type="text" id="date-location" placeholder="Location (e.g., Animal Hospital)">
+                    <input type="date" id="date-date" required>
+                    <input type="time" id="date-time">
+                    <div class="form-buttons">
+                        <button id="save-date-btn" type="button">Add</button>
+                        <button type="button" id="cancel-date-btn">Cancel</button>
+                    </div>
+                </div>
+                <div class="dates-list" id="dates-list"></div>
+            </div>
+        </div>
+
+    <h1>MATTY'S PUPPY SCHEDULE</h1>
+
+    <div class="puppy-container">
+        <img src="photo2pixel_download.png" alt="Matty the Maltipoo" class="puppy-logo">
+    </div>
+    
+    <div class="time-display" id="current-time">IT'S CURRENTLY: Loading...</div>
+
+    <div class="alarm-container">
+        <div class="alarm-display" id="next-alarm">Next alarm: --:-- --</div>
+        <button class="alarm-btn" id="toggle-alarm">🔔 Enable Alarms</button>
+    </div>
+
+    <div class="schedule-grid">
+        <button class="activity-btn" onclick="startActivity('🌅 Wake Up Walk (Potty)')">🌅 Wake Up Walk</button>
+        <button class="activity-btn" onclick="startActivity('🍖 Breakfast')">🍖 Breakfast</button>
+        <button class="activity-btn" onclick="startActivity('🚶 Post-Breakfast Walk')">🚶 Post-Brekkie Walk</button>
+        <button class="activity-btn" onclick="startActivity('🕛 Noon Time')">🕛 Noon (Work/Nap/Play)</button>
+        <button class="activity-btn" onclick="startActivity('🌤️ Afternoon Walk')">🌤️ Afternoon Walk</button>
+        <button class="activity-btn" onclick="startActivity('🍽️ Dinner')">🍽️ Dinner</button>
+        <button class="activity-btn" onclick="startActivity('🌙 Post-Dinner Walk')">🌙 Post-Dinner Walk</button>
+        <button class="activity-btn" onclick="startActivity('✨ Nighttime')">✨ Nighttime (Play/Cuddle)</button>
+    </div>
+    
+    <div class="log-container">
+        <div class="log-title">Puppy Activity Log (Eastern Time):</div>
+        <div id="activity-log"></div>
+    </div>
+
+    <div class="log-actions">
+        <button class="activity-btn" onclick="saveLogs()" style="background-color: #8b5a2b;">💾 Save Logs</button>
+        <button class="activity-btn" onclick="exportLogs()" style="background-color: #8b5a2b;">📄 Export Sheet</button>
+    </div>
+
+    <script src="./matty.js"></script>
+</body>
+</html>
