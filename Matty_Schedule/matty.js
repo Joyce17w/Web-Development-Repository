@@ -14,7 +14,7 @@ function updateCurrentTime() {
         day: 'numeric'
     };
     document.getElementById('current-time').textContent = 
-        `Current ET: ${now.toLocaleDateString('en-US', dateOptions)} ${now.toLocaleTimeString('en-US', options)}`;
+        `it's currently: ${now.toLocaleDateString('en-US', dateOptions)} ${now.toLocaleTimeString('en-US', options)}`;
 }
 
 setInterval(updateCurrentTime, 1000);
@@ -26,14 +26,34 @@ let alarmTimeout = null;
 const alarmSound = new Audio('https://assets.mixkit.co/sfx/preview/mixkit-alarm-digital-clock-beep-989.mp3');
 let importantDates = JSON.parse(localStorage.getItem('importantDates')) || [];
 
+function handleFormKeyPress(e) {
+    if (e.key === 'Enter') {
+        e.preventDefault();
+        const saveBtn = document.getElementById('save-date-btn');
+        if (saveBtn) saveBtn.click();
+    }
+}
+
+saveImportantDates();
+
+function filterPastDates() {
+    const now = new Date();
+    importantDates = importantDates.filter(date => {
+        return new Date(date.datetime) >= now;
+    });
+    saveImportantDates();
+    }
+
 function showDateForm() {
     document.getElementById('date-form').style.display = 'flex';
     document.getElementById('add-date-btn').style.display = 'none';
+    form.addEventListener('keypress', handleFormKeyPress);
 }
 
 function hideDateForm() {
     document.getElementById('date-form').style.display = 'none';
     document.getElementById('add-date-btn').style.display = 'block';
+    form.removeEventListener('keypress', handleFormKeyPress);
     resetDateForm();
 }
 
@@ -43,10 +63,6 @@ function addImportantDate() {
     const date = document.getElementById('date-date').value;
     const time = document.getElementById('date-time').value;
     
-    if (!title || !date) {
-        alert('Please at least enter a title and date');
-        return;
-    }
     
     const datetime = new Date(`${date}T${time || '12:00'}`);
     const dateId = Date.now(); 
@@ -64,9 +80,15 @@ function addImportantDate() {
 }
 
 function renderImportantDates() {
+    filterPastDates(); 
     const container = document.getElementById('dates-list');
     container.innerHTML = '';
     
+    if (importantDates.length === 0) {
+        container.innerHTML = '<p style="color:#8b5a2b; text-align:center;">No upcoming dates</p>';
+        return;
+    }
+    importantDates.sort((a, b) => new Date(a.datetime) - new Date(b.datetime));
     if (importantDates.length === 0) {
         container.innerHTML = '<p style="color:#8b5a2b; text-align:center;">No important dates yet</p>';
         return;
@@ -91,30 +113,37 @@ function renderImportantDates() {
         })}`;
         
         dateItem.innerHTML = `
-        <div class="date-item-header">
-            <h4>${date.title}</h4>
-            <button class="edit-date" data-id="${date.id}">✏️</button>
-        </div>
-                <button class="delete-date" data-id="${date.id}">×</button>
+            <div class="date-item-header">
+                <h4>${date.title}</h4>
+                <button class="edit-date" data-id="${date.id}">✏️</button>
             </div>
             ${date.location ? `
             <div class="location">
                 <span class="location-icon">📍</span>
                 ${date.location}
+                <button class="map-btn" data-location="${encodeURIComponent(date.location)}">🗺️ take us</button>
             </div>
             ` : ''}
             <p>${formattedDate}</p>
+            <button class="delete-date" data-id="${date.id}">×</button>
         `;
         container.appendChild(dateItem);
     });
     
-    // Add event listeners for edit/delete buttons
     document.querySelectorAll('.edit-date').forEach(btn => {
         btn.addEventListener('click', (e) => editImportantDate(parseInt(e.target.dataset.id)));
     });
     
     document.querySelectorAll('.delete-date').forEach(btn => {
         btn.addEventListener('click', (e) => deleteImportantDate(parseInt(e.target.dataset.id)));
+    });
+    
+
+    document.querySelectorAll('.map-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            const location = e.target.dataset.location;
+            window.open(`https://www.google.com/maps?q=${location}`, '_blank');
+        });
     });
 }
 
@@ -124,6 +153,36 @@ function deleteImportantDate(id) {
     renderImportantDates();
 }
 
+
+function saveEditedDate(id) {
+    const title = document.getElementById('date-title').value.trim();
+    const location = document.getElementById('date-location').value.trim();
+    const date = document.getElementById('date-date').value;
+    const time = document.getElementById('date-time').value;
+    
+    if (!title || !date) {
+        alert('Please at least enter a title and date');
+        return;
+    }
+    
+    const datetime = new Date(`${date}T${time || '12:00'}`);
+    
+    const index = importantDates.findIndex(date => date.id === id);
+    if (index !== -1) {
+        importantDates[index] = {
+            id: id, 
+            title,
+            location,
+            datetime: datetime.toISOString()
+        };
+    }
+    
+    saveImportantDates();
+    renderImportantDates();
+    hideDateForm();
+}
+
+let currentEditingId = null;
 function editImportantDate(id) {
     const dateToEdit = importantDates.find(date => date.id === id);
     if (!dateToEdit) return;
@@ -142,35 +201,6 @@ function editImportantDate(id) {
     
     showDateForm();
 }
-
-function saveEditedDate(id) {
-    const title = document.getElementById('date-title').value.trim();
-    const location = document.getElementById('date-location').value.trim();
-    const date = document.getElementById('date-date').value;
-    const time = document.getElementById('date-time').value;
-    
-    if (!title || !date) {
-        alert('Please at least enter a title and date');
-        return;
-    }
-    
-    const datetime = new Date(`${date}T${time || '12:00'}`);
-    
-    const index = importantDates.findIndex(date => date.id === id);
-    if (index !== -1) {
-        importantDates[index] = {
-            id,
-            title,
-            location,
-            datetime: datetime.toISOString()
-        };
-    }
-    
-    saveImportantDates();
-    renderImportantDates();
-    hideDateForm();
-}
-
 function saveImportantDates() {
     localStorage.setItem('importantDates', JSON.stringify(importantDates));
 }
@@ -187,14 +217,20 @@ function resetDateForm() {
     document.getElementById('date-form').classList.remove('edit-mode');
 }
 
-// Initialize on load
+
 document.addEventListener('DOMContentLoaded', function() {
-    // Initialize date form
+    filterPastDates();
+    renderImportantDates();
     document.getElementById('add-date-btn').addEventListener('click', showDateForm);
     document.getElementById('cancel-date-btn').addEventListener('click', hideDateForm);
-    document.getElementById('save-date-btn').addEventListener('click', addImportantDate);
-    
-    // Initialize toggle button
+    document.getElementById('save-date-btn').onclick = addImportantDate;
+    document.getElementById('activity-log').addEventListener('click', function(e) {
+        if (e.target.classList.contains('delete-log')) {  // Fixed
+            deleteLogEntry(e.target.dataset.id);
+        }
+    }
+    );
+
     const toggleDatesBtn = document.getElementById('toggle-dates-btn');
     const datesContent = document.getElementById('dates-content');
     
@@ -213,10 +249,113 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
     
-    // Load initial data
     renderImportantDates();
 });
 
+let pixelChecklistItems = JSON.parse(localStorage.getItem('pixelChecklistItems')) || [];
+
+function showPixelChecklistForm() {
+    document.getElementById('pixel-checklist-form').style.display = 'flex';
+    document.getElementById('pixel-checklist-add').style.display = 'none';
+    document.getElementById('pixel-checklist-input').focus();
+}
+
+function hidePixelChecklistForm() {
+    document.getElementById('pixel-checklist-form').style.display = 'none';
+    document.getElementById('pixel-checklist-add').style.display = 'block';
+    document.getElementById('pixel-checklist-input').value = '';
+}
+
+function addPixelChecklistItem(e) {
+    e.preventDefault();
+    const text = document.getElementById('pixel-checklist-input').value.trim();
+    if (!text) return;
+    
+    pixelChecklistItems.push({
+        id: Date.now(),
+        text,
+        completed: false
+    });
+    
+    savePixelChecklistItems();
+    renderPixelChecklistItems();
+    hidePixelChecklistForm();
+}
+
+function renderPixelChecklistItems() {
+    const container = document.getElementById('pixel-checklist-items');
+    container.innerHTML = '';
+    
+    if (pixelChecklistItems.length === 0) {
+        container.innerHTML = '<p style="color:#8b5a2b; text-align:center;">No tasks yet!</p>';
+        return;
+    }
+    
+    pixelChecklistItems.forEach(item => {
+        const itemElement = document.createElement('div');
+        itemElement.className = `pixel-checklist-item ${item.completed ? 'completed' : ''}`;
+        itemElement.innerHTML = `
+            <input type="checkbox" id="pixel-check-${item.id}" ${item.completed ? 'checked' : ''}>
+            <label for="pixel-check-${item.id}">${item.text}</label>
+            <button class="pixel-checklist-item-delete" data-id="${item.id}">×</button>
+        `;
+        container.appendChild(itemElement);
+        
+        // Add event listeners
+        const checkbox = itemElement.querySelector('input[type="checkbox"]');
+        checkbox.addEventListener('change', () => togglePixelChecklistItem(item.id));
+        
+        const deleteBtn = itemElement.querySelector('.pixel-checklist-item-delete');
+        deleteBtn.addEventListener('click', () => deletePixelChecklistItem(item.id));
+    });
+}
+
+function togglePixelChecklistItem(id) {
+    const item = pixelChecklistItems.find(item => item.id === id);
+    if (item) {
+        item.completed = !item.completed;
+        savePixelChecklistItems();
+        renderPixelChecklistItems();
+    }
+}
+
+function deletePixelChecklistItem(id) {
+    pixelChecklistItems = pixelChecklistItems.filter(item => item.id !== id);
+    savePixelChecklistItems();
+    renderPixelChecklistItems();
+}
+
+function savePixelChecklistItems() {
+    localStorage.setItem('pixelChecklistItems', JSON.stringify(pixelChecklistItems));
+}
+
+// Add to your DOMContentLoaded event:
+document.addEventListener('DOMContentLoaded', function() {
+    // Existing code...
+    
+    // Pixel Checklist functionality
+    document.getElementById('pixel-checklist-add').addEventListener('click', showPixelChecklistForm);
+    document.getElementById('pixel-checklist-cancel').addEventListener('click', hidePixelChecklistForm);
+    document.getElementById('pixel-checklist-form').addEventListener('submit', addPixelChecklistItem);
+    
+    // Checklist toggle
+    const pixelChecklistToggle = document.getElementById('pixel-checklist-toggle');
+    const pixelChecklistContent = document.getElementById('pixel-checklist-content');
+    
+    pixelChecklistToggle.addEventListener('click', function() {
+        const isCollapsed = pixelChecklistContent.classList.contains('collapsed');
+        
+        if (isCollapsed) {
+            pixelChecklistContent.classList.remove('collapsed');
+            pixelChecklistToggle.textContent = '-';
+        } else {
+            pixelChecklistContent.classList.add('collapsed');
+            pixelChecklistToggle.textContent = '+';
+        }
+    });
+    
+    renderPixelChecklistItems();
+});
 
 
 function setNextAlarm() {
@@ -233,13 +372,12 @@ function setNextAlarm() {
     
     // Update display
     document.getElementById('next-alarm').textContent = 
-        `Next alarm: ${nextAlarmTime.toLocaleTimeString('en-US', { 
+        `💩 Time to potty: ${nextAlarmTime.toLocaleTimeString('en-US', { 
             hour: '2-digit', 
             minute: '2-digit',
             timeZone: 'America/New_York'
         })}`;
     
-    // Set timeout for alarm
     alarmTimeout = setTimeout(triggerAlarm, alarmDelay);
 }
 
@@ -255,7 +393,6 @@ function triggerAlarm() {
     alarmSound.loop = true;
     alarmSound.play();
     
-    // Notification
     if (Notification.permission === 'granted') {
         new Notification("Matty's Reminder", {
             body: "Time for the next puppy activity check!",
@@ -265,16 +402,13 @@ function triggerAlarm() {
 }
 
 function stopAlarm() {
-    // Stop sound
     alarmSound.pause();
     alarmSound.currentTime = 0;
     
-    // Reset button
     const btn = document.getElementById('toggle-alarm');
     btn.classList.remove('ringing');
     btn.textContent = '🔔 Alarms Enabled';
     
-    // Set next alarm
     setNextAlarm();
 }
 
@@ -296,11 +430,10 @@ function toggleAlarm() {
             clearTimeout(alarmTimeout);
             alarmTimeout = null;
         }
-        document.getElementById('next-alarm').textContent = 'Next alarm: --:-- --';
+        document.getElementById('next-alarm').textContent = '💩 Time to potty: --:-- --';
     }
 }
 
-// Add event listener for the alarm button
 document.getElementById('toggle-alarm').addEventListener('click', function() {
     if (this.classList.contains('ringing')) {
         stopAlarm();
@@ -310,7 +443,6 @@ document.getElementById('toggle-alarm').addEventListener('click', function() {
 });
 
 
-// Activity tracking
 let currentActivity = null;
 let activityStartTime = null;
 const activityLog = document.getElementById('activity-log');
@@ -326,6 +458,7 @@ function formatTime(date) {
     return date.toLocaleTimeString('en-US', options);
 }
 
+
 function formatDate(date) {
     const options = {
         timeZone: 'America/New_York',
@@ -338,20 +471,19 @@ function formatDate(date) {
 
 function startActivity(activityName) {
     const now = new Date();
-    
-    // If there's a current activity, end it first
+    const logId = Date.now();
     if (currentActivity) {
         endCurrentActivity();
     }
-    
-    // Start new activity
+
     currentActivity = activityName;
     activityStartTime = now;
-    
-    // Create log entry for start
+
     const startEntry = document.createElement('div');
     startEntry.className = 'log-entry';
+    startEntry.dataset.id = logId;
     startEntry.innerHTML = `
+        <button class="delete-log" data-id="${logId}">×</button>
         <strong>${formatDate(now)}</strong><br>
         🐾 <strong>[${formatTime(now)}]</strong> Started: <strong>${activityName}</strong>
     `;
@@ -362,8 +494,9 @@ function endCurrentActivity() {
     if (!currentActivity) return;
     
     const now = new Date();
+    const logId = Date.now();
     
-    // Calculate duration
+    
     const durationMs = now - activityStartTime;
     const durationHours = Math.floor(durationMs / (1000 * 60 * 60));
     const durationMins = Math.floor((durationMs % (1000 * 60 * 60)) / (1000 * 60));
@@ -381,7 +514,9 @@ function endCurrentActivity() {
     // Create log entry for end
     const endEntry = document.createElement('div');
     endEntry.className = 'log-entry';
+    endEntry.dataset.id = logId;
     endEntry.innerHTML = `
+        <button class="delete-log" data-id="${logId}">×</button>
         <strong>${formatDate(now)}</strong><br>
         🐶 <strong>[${formatTime(now)}]</strong> Ended: <strong>${currentActivity}</strong><br>
         ⏱️ Duration: <strong>${durationText}</strong> (Started at ${formatTime(activityStartTime)})
@@ -400,10 +535,29 @@ window.addEventListener('beforeunload', function() {
     }
 });
 
+function deleteLogEntry(logId) {
+    if (!confirm('Delete this activity log?')) return;
+    const logElement = document.querySelector(`.log-entry[data-id="${logId}"]`);
+    if (logElement) logElement.remove();
+
+    savedLogs = JSON.parse(localStorage.getItem('puppyLogs')) || [];
+    savedLogs = savedLogs.filter(entry => {
+        const entryIdMatch = entry.match(/data-id="([^"]+)"/);
+        return !entryIdMatch || entryIdMatch[1] !== logId.toString();
+    });
+    
+    localStorage.setItem('puppyLogs', JSON.stringify(savedLogs));
+}
+
+
 // Sample initial log entry
 const welcomeEntry = document.createElement('div');
 welcomeEntry.className = 'log-entry';
-welcomeEntry.innerHTML = 'Click activities to start logging! 🐕';
+welcomeEntry.dataset.id = 'welcome';
+welcomeEntry.innerHTML = `
+    <button class="delete-log" data-id="welcome">×</button>
+    Click activities to start logging! 🐕
+`;
 activityLog.appendChild(welcomeEntry);
 let savedLogs = JSON.parse(localStorage.getItem('puppyLogs')) || [];
 
@@ -494,3 +648,16 @@ window.addEventListener('beforeunload', function() {
     }
     saveLogs(); // Auto-save when leaving
 });
+
+function cleanOldLogs(daysToKeep = 7) {
+    const cutoff = new Date();
+    cutoff.setDate(cutoff.getDate() - daysToKeep);
+    
+    savedLogs = savedLogs.filter(entry => {
+        const entryDate = new Date(entry.split('<strong>')[1].split('</strong>')[0]);
+        return entryDate >= cutoff;
+    });
+    
+    localStorage.setItem('puppyLogs', JSON.stringify(savedLogs));
+    renderActivityLogs();
+}

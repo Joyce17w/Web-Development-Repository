@@ -1,4 +1,7 @@
 <!DOCTYPE html>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#f5e9d9">
+<link rel="manifest" href="manifest.json">
 <html>
 <head>
     <title>A Day in Matty's Life</title>
@@ -14,13 +17,45 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="matty_style.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     </head>
     <body>
+        <div class="logo-links">
+            <a href="https://app.bondvet.com/home" title="BondVet" target="_blank" rel="noopener noreferrer">
+                <div class="logo-circle">
+                    <img src="cropped-BondVet_Favicon.png" alt="BondVet" class="mini-logo">
+                </div>
+            </a>
+            <a href="https://customer.spotpet.com/portal/#/home" title="Spot Insurance" target="_blank" rel="noopener noreferrer">
+                <div class="logo-circle spot-logo-circle">
+                    <img src="Spot_Primary_Logo.png" alt="SpotInsurance" class="mini-logo spot-logo"> 
+                </div>
+            </a>
+        </div>
+        <div class="pixel-checklist">
+            <div class="pixel-checklist-header">
+              <h3>🐾 Puppy Checklist</h3>
+              <button class="pixel-button" id="pixel-checklist-toggle">+</button>
+            </div>
+            <div class="pixel-checklist-content" id="pixel-checklist-content">
+              <div class="pixel-checklist-items" id="pixel-checklist-items">
+              </div>
+              <form class="pixel-checklist-form" id="pixel-checklist-form">
+                <input type="text" class="pixel-input" id="pixel-checklist-input" placeholder="New task..." required>
+                <div class="pixel-checklist-buttons">
+                  <button type="submit" class="pixel-button">Add</button>
+                  <button type="button" class="pixel-button" id="pixel-checklist-cancel">Cancel</button>
+                </div>
+              </form>
+              <button class="pixel-button" id="pixel-checklist-add">+ Add Item</button>
+            </div>
+          </div>
         <div class="sidebar">
             <div class="sidebar-header">
                 <h3>📅 Important Dates</h3>
                 <button class="toggle-dates-btn" id="toggle-dates-btn">+</button>
             </div>
+    
             <div class="dates-content" id="dates-content">
                 <button class="add-date-btn" id="add-date-btn">+ Add Date</button>
                 <div class="date-form" id="date-form" style="display: none;">
@@ -35,7 +70,12 @@
                 </div>
                 <div class="dates-list" id="dates-list"></div>
             </div>
+                </div>
+            </div>
         </div>
+
+
+
 
     <h1>MATTY'S PUPPY SCHEDULE</h1>
 
@@ -46,7 +86,7 @@
     <div class="time-display" id="current-time">IT'S CURRENTLY: Loading...</div>
 
     <div class="alarm-container">
-        <div class="alarm-display" id="next-alarm">Next alarm: --:-- --</div>
+        <div class="alarm-display" id="next-alarm">💩 Time to potty: --:-- --</div>
         <button class="alarm-btn" id="toggle-alarm">🔔 Enable Alarms</button>
     </div>
 

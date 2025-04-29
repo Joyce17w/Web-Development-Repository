@@ -1,5 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
 
+
+
 body {
     font-family: 'VT323', 'Courier New', monospace;
     background-color: #f5e9d9;
@@ -126,7 +128,7 @@ body {
 .dates-content {
     overflow: hidden;
     transition: max-height 0.3s ease, opacity 0.2s ease;
-    max-height: 500px; /* Adjust based on your content */
+    max-height: 500px;
     opacity: 1;
 }
 
@@ -237,7 +239,6 @@ body {
     transform: scale(1.1);
 }
 
-/* Form button adjustments */
 .date-form button:first-of-type {
     background-color: #8b5a2b;
 }
@@ -246,6 +247,21 @@ body {
     background-color: #a06d3a;
 }
 
+.map-btn {
+    background: none;
+    border: none;
+    color: #c69e7d;
+    cursor: pointer;
+    font-family: 'VT323', monospace;
+    font-size: 1rem;
+    padding: 2px 5px;
+    transition: all 0.2s;
+}
+
+.map-btn:hover {
+    color: #5a3921;
+    text-decoration: underline;
+}
 
 @media (max-width: 1000px) {
     body {
@@ -259,6 +275,48 @@ body {
     }
 }
 
+.logo-links {
+    position: fixed;
+    top: 15px;
+    left: 15px;
+    z-index: 1000;
+    display: flex;
+    gap: 10px;
+}
+
+.logo-circle {
+    width: 36px;  
+    height: 36px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.9);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    padding: 5px; 
+}
+
+.spot-logo {
+    transform: scale(1.4);
+}
+
+.mini-logo {
+    width: 40px; 
+    height: 20px;
+    object-fit: contain;
+    filter: brightness(0.9);
+}
+
+.logo-circle:hover {
+    transform: scale(1.1);
+    background: rgba(255, 255, 255, 0.95);
+}
+
+.logo-circle:hover {
+    transform: scale(1.1);
+    background: rgba(255, 255, 255, 0.95);
+}
 
 h1 {
     text-align: center;
@@ -267,6 +325,147 @@ h1 {
     font-size: 32px;
 }
 
+.pixel-checklist {
+    position: fixed;
+    left: 20px;
+    top: 80px;
+    width: 250px;
+    background-color: #f0e0c0;
+    border: 3px solid #d4a76a;
+    border-radius: 10px;
+    padding: 15px;
+    margin-left:30px;
+    margin-top: 30px;
+    z-index: 99;
+    font-family: 'VT323', monospace;
+  }
+  
+  .pixel-checklist-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  
+  .pixel-checklist-header h3 {
+    margin: 0;
+    font-size: 1.5rem;
+    color: #5a3921;
+  }
+  
+  .pixel-checklist-content {
+    max-height: 500px;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+  }
+  
+  .pixel-checklist-content.collapsed {
+    max-height: 0;
+  }
+  
+  .pixel-checklist-items {
+    margin-bottom: 10px;
+  }
+  
+  .pixel-checklist-item {
+    display: flex;
+    align-items: center;
+    padding: 8px;
+    background-color: white;
+    margin-bottom: 5px;
+    border: 2px solid #d4a76a;
+    position: relative;
+  }
+  
+  .pixel-checklist-item input[type="checkbox"] {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 16px;
+    height: 16px;
+    border: 2px solid #5a3921;
+    margin-right: 8px;
+    position: relative;
+    cursor: pointer;
+  }
+  
+  .pixel-checklist-item input[type="checkbox"]:checked {
+    background-color: #8b5a2b;
+  }
+  
+  .pixel-checklist-item input[type="checkbox"]:checked::after {
+    content: "✓";
+    position: absolute;
+    color: white;
+    font-size: 12px;
+    left: 1px;
+    top: -2px;
+  }
+  
+  .pixel-checklist-item label {
+    flex-grow: 1;
+    font-size: 1.1rem;
+    cursor: pointer;
+  }
+  
+  .pixel-checklist-item.completed label {
+    text-decoration: line-through;
+    color: #8b5a2b;
+  }
+  
+  .pixel-checklist-item-delete {
+    background: none;
+    border: none;
+    color: #ff6b6b;
+    cursor: pointer;
+    font-size: 1.2rem;
+    margin-left: 5px;
+  }
+  
+  .pixel-checklist-form {
+    display: none;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 10px;
+  }
+  
+  .pixel-input {
+    padding: 8px;
+    border: 2px solid #d4a76a;
+    background-color: white;
+    font-family: 'VT323', monospace;
+    font-size: 1rem;
+  }
+  
+  .pixel-checklist-buttons {
+    display: flex;
+    gap: 8px;
+  }
+  
+  .pixel-button {
+    padding: 6px 12px;
+    background-color: #d4a76a;
+    border: 2px solid #8b5a2b;
+    color: #5a3921;
+    font-family: 'VT323', monospace;
+    font-size: 1rem;
+    cursor: pointer;
+    box-shadow: 2px 2px 0 #8b5a2b;
+    transition: all 0.1s;
+  }
+  
+  .pixel-button:hover {
+    background-color: #f9c266;
+  }
+  
+  .pixel-button:active {
+    transform: translate(2px, 2px);
+    box-shadow: none;
+  }
+  
+  #pixel-checklist-add {
+    width: 100%;
+  }
+
 .puppy-logo {
     display: block;
     margin: 0 auto;
@@ -274,6 +473,27 @@ h1 {
     height: auto;
 }
 
+.sidebar-links {
+    margin-top: 20px;
+    padding: 15px;
+    border-top: 1px solid #ddd;
+}
+
+.sidebar-links h3 {
+    margin-bottom: 10px;
+}
+
+.sidebar-links a {
+    display: block;
+    color: #333;
+    text-decoration: none;
+    padding: 5px 0;
+    transition: color 0.3s;
+}
+
+.sidebar-links a:hover {
+    color: #8b5a2b;
+}
 
 .alarm-container {
     display: flex;
@@ -389,9 +609,27 @@ h1 {
 }
 
 .log-entry {
+    position: relative;
     margin-bottom: 10px;
-    padding: 5px;
+    padding: 25px;
     border-bottom: 1px dotted #d4a76a;
+}
+
+.delete-log {
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    background: none;
+    border: none;
+    color: #ff6b6b;
+    cursor: pointer;
+    font-size: 1.2rem;
+    line-height: 1;
+}
+
+.delete-log:hover {
+    color: #ff3b3b;
+    transform: scale(1.2);
 }
 
 .time-display {
@@ -412,8 +650,79 @@ h1 {
     background-color: #7a4d2d !important;
 }
 
+
+
+
 @media (max-width: 600px) {
     .schedule-grid {
         grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+        max-width: 100%;
+    }
+
+    .puppy-logo {
+        width: 250px;
+    }
+
+    .schedule-grid {
+        grid-template-columns: 1fr !important;
+    }
+
+    .sidebar {
+        position: relative;
+        right: auto;
+        top: auto;
+        width: 100%;
+        margin-bottom: 20px;
+    }
+    .pixel-checklist {
+        position: relative;
+        left: auto;
+        top: auto;
+        width: 100%;
+        margin-bottom: 20px;
+    }
+
+    .time-display {
+        font-size: 16px;
+        padding: 5px;
+    }
+
+    .activity-btn {
+        font-size: 20px;
+        padding: 10px 5px;
+    }
+
+
+    .logo-links {
+        top: 10px;
+        left: 10px;
+    }
+    .logo-circle {
+        width: 32px;
+        height: 32px;
+    }
+    .mini-logo {
+        width: 18px;
+        height: 18px;
+    }
+}
+
+@media (max-width: 480px) {
+    h1 {
+        font-size: 24px;
+    }
+    
+    .puppy-logo {
+        width: 200px;
+    }
+    
+    .activity-btn {
+        font-size: 18px;
     }
 }
