@@ -536,13 +536,11 @@ h1 {
     box-shadow: none;
 }
 
-/* Alarm active state */
 .alarm-active {
     background-color: #ff9eb5;
     color: white;
 }
 
-/* Alarm ringing animation */
 @keyframes ring {
     0% { transform: rotate(-5deg); }
     50% { transform: rotate(5deg); }
@@ -601,7 +599,7 @@ h1 {
 .log-title {
     font-weight: bold;
     margin-bottom: 10px;
-    font-size: 18px;
+    font-size: 20px;
     position: sticky;
     top: 0;
     background-color: #f0e0c0;
@@ -610,6 +608,7 @@ h1 {
 
 .log-entry {
     position: relative;
+    font-size: 18px;
     margin-bottom: 10px;
     padding: 25px;
     border-bottom: 1px dotted #d4a76a;
@@ -637,7 +636,6 @@ h1 {
     color: #8b5a2b;
     margin-top: 10px;
     text-align: center;
-    background-color: #f0e0c0;
     padding: 8px;
     border-radius: 5px;
     border: 2px solid #d4a76a;
@@ -650,7 +648,100 @@ h1 {
     background-color: #7a4d2d !important;
 }
 
+.media-section {
+    background-color: #f0e0c0;
+    border: 3px solid #d4a76a;
+    border-radius: 10px;
+    padding: 15px;
+    margin: 20px 0;
+    box-shadow: 5px 5px 0px #d4a76a;
+}
 
+.media-upload {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.media-upload input[type="file"] {
+    display: none;
+}
+
+.media-upload label {
+    background-color: #d4a76a;
+    color: white;
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+    font-family: 'VT323', monospace;
+    font-size: 1.2rem;
+    transition: all 0.2s;
+}
+
+.media-upload label:hover {
+    background-color: #f9c266;
+}
+
+.media-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 15px;
+    margin-top: 15px;
+}
+
+.media-item {
+    position: relative;
+    border-radius: 5px;
+    overflow: hidden;
+    border: 2px solid #d4a76a;
+    background-color: white;
+}
+
+.media-item img, .media-item video {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    display: block;
+}
+
+.media-item .media-caption {
+    padding: 8px;
+    font-size: 0.9rem;
+    text-align: center;
+    background-color: white;
+}
+
+.delete-media {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background-color: #ff6b6b;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 25px;
+    height: 25px;
+    cursor: pointer;
+    font-size: 0.8rem;
+}
+
+.delete-media:hover {
+    background-color: #ff3b3b;
+}
+
+@media (max-width: 768px) {
+    .media-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 480px) {
+    .media-grid {
+        grid-template-columns: 1fr;
+    }
+}
 
 
 @media (max-width: 600px) {

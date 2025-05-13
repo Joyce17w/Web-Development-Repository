@@ -223,9 +223,11 @@ document.addEventListener('DOMContentLoaded', function() {
     renderImportantDates();
     document.getElementById('add-date-btn').addEventListener('click', showDateForm);
     document.getElementById('cancel-date-btn').addEventListener('click', hideDateForm);
+    document.getElementById('media-upload').addEventListener('change', handleMediaUpload);
+    renderMediaItems();
     document.getElementById('save-date-btn').onclick = addImportantDate;
     document.getElementById('activity-log').addEventListener('click', function(e) {
-        if (e.target.classList.contains('delete-log')) {  // Fixed
+        if (e.target.classList.contains('delete-log')) {
             deleteLogEntry(e.target.dataset.id);
         }
     }
@@ -301,7 +303,6 @@ function renderPixelChecklistItems() {
         `;
         container.appendChild(itemElement);
         
-        // Add event listeners
         const checkbox = itemElement.querySelector('input[type="checkbox"]');
         checkbox.addEventListener('change', () => togglePixelChecklistItem(item.id));
         
@@ -329,19 +330,124 @@ function savePixelChecklistItems() {
     localStorage.setItem('pixelChecklistItems', JSON.stringify(pixelChecklistItems));
 }
 
-// Add to your DOMContentLoaded event:
-document.addEventListener('DOMContentLoaded', function() {
-    // Existing code...
+let mediaItems = JSON.parse(localStorage.getItem('mattyMedia')) || [];
+
+function handleMediaUpload(e) {
+    const files = e.target.files;
+    const caption = document.getElementById('media-caption').value.trim() || 'Matty Moment';
     
-    // Pixel Checklist functionality
+    if (!files || files.length === 0) return;
+    
+    Array.from(files).forEach(file => {
+        // Check if file is an image or video
+        if (!file.type.match('image.*') && !file.type.match('video.*')) {
+            alert('Only images and videos are allowed!');
+            return;
+        }
+        
+        const reader = new FileReader();
+        
+        reader.onload = function(event) {
+            const mediaItem = {
+                id: Date.now() + Math.random().toString(36).substr(2, 9),
+                type: file.type.startsWith('video') ? 'video' : 'image',
+                data: event.target.result,
+                caption: caption,
+                date: new Date().toISOString(),
+                fileType: file.type // Store the file type
+            };
+            
+            mediaItems.push(mediaItem);
+            saveMediaItems();
+            renderMediaItems();
+        };
+        
+        reader.onerror = function() {
+            console.error('Error reading file');
+        };
+        
+        reader.readAsDataURL(file);
+    });
+    e.target.value = '';
+}
+
+function saveMediaItems() {
+    try {
+        localStorage.setItem('mattyMedia', JSON.stringify(mediaItems));
+    } catch (e) {
+        console.error('Error saving media items:', e);
+    }
+}
+
+function renderMediaItems() {
+    const container = document.getElementById('media-grid');
+    if (!container) return;
+    
+    container.innerHTML = '';
+    
+    if (mediaItems.length === 0) {
+        container.innerHTML = '<p style="color:#8b5a2b; text-align:center;">No media yet! Upload some memories of Matty.</p>';
+        return;
+    }
+    
+    // Sort by date (newest first)
+    mediaItems.sort((a, b) => new Date(b.date) - new Date(a.date));
+    
+    mediaItems.forEach(item => {
+        const mediaElement = document.createElement('div');
+        mediaElement.className = 'media-item';
+        
+        if (item.type === 'video') {
+            mediaElement.innerHTML = `
+                <video controls>
+                    <source src="${item.data}" type="${item.fileType || 'video/mp4'}">
+                    Your browser does not support the video tag.
+                </video>
+                <div class="media-caption">${item.caption}</div>
+                <button class="delete-media" data-id="${item.id}">×</button>
+            `;
+        } else {
+            mediaElement.innerHTML = `
+                <img src="${item.data}" alt="${item.caption}">
+                <div class="media-caption">${item.caption}</div>
+                <button class="delete-media" data-id="${item.id}">×</button>
+            `;
+        }
+        
+        container.appendChild(mediaElement);
+    });
+    
+    // Add event listeners to delete buttons
+    document.querySelectorAll('.delete-media').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            deleteMediaItem(e.target.dataset.id);
+        });
+    });
+}
+
+function deleteMediaItem(id) {
+    if (confirm('Delete this media item?')) {
+        mediaItems = mediaItems.filter(item => item.id !== id);
+        saveMediaItems();
+        renderMediaItems();
+    }
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+
+    
     document.getElementById('pixel-checklist-add').addEventListener('click', showPixelChecklistForm);
     document.getElementById('pixel-checklist-cancel').addEventListener('click', hidePixelChecklistForm);
     document.getElementById('pixel-checklist-form').addEventListener('submit', addPixelChecklistItem);
     
-    // Checklist toggle
     const pixelChecklistToggle = document.getElementById('pixel-checklist-toggle');
     const pixelChecklistContent = document.getElementById('pixel-checklist-content');
-    
+    const mediaUploadInput = document.getElementById('media-upload');
+    if (mediaUploadInput) {
+        mediaUploadInput.addEventListener('change', handleMediaUpload);
+    }
+    renderMediaItems();
     pixelChecklistToggle.addEventListener('click', function() {
         const isCollapsed = pixelChecklistContent.classList.contains('collapsed');
         
@@ -361,16 +467,14 @@ document.addEventListener('DOMContentLoaded', function() {
 function setNextAlarm() {
     if (!alarmEnabled) return;
     
-    // Clear any existing alarm
+
     if (alarmTimeout) {
         clearTimeout(alarmTimeout);
     }
     
-    // Set alarm for 1.5 hours from now
-    const alarmDelay = 1.5 * 60 * 60 * 1000; // 1.5 hours in milliseconds
+    const alarmDelay = 1.5 * 60 * 60 * 1000; 
     nextAlarmTime = new Date(Date.now() + alarmDelay);
     
-    // Update display
     document.getElementById('next-alarm').textContent = 
         `💩 Time to potty: ${nextAlarmTime.toLocaleTimeString('en-US', { 
             hour: '2-digit', 
@@ -384,12 +488,10 @@ function setNextAlarm() {
 function triggerAlarm() {
     if (!alarmEnabled) return;
     
-    // Visual feedback
     const btn = document.getElementById('toggle-alarm');
     btn.classList.add('ringing');
     btn.textContent = '🔔 ALARMING! Click to stop';
-    
-    // Play sound (loop until stopped)
+
     alarmSound.loop = true;
     alarmSound.play();
     
@@ -419,13 +521,12 @@ function toggleAlarm() {
     if (alarmEnabled) {
         btn.classList.add('alarm-active');
         setNextAlarm();
-        // Request notification permission
         if (Notification.permission !== 'granted') {
             Notification.requestPermission();
         }
     } else {
         btn.classList.remove('alarm-active');
-        btn.textContent = '🔔 Enable Alarms';
+        btn.textContent = '🔔 Enable Alarm';
         if (alarmTimeout) {
             clearTimeout(alarmTimeout);
             alarmTimeout = null;
@@ -511,7 +612,6 @@ function endCurrentActivity() {
         durationText = `${durationSecs}s`;
     }
     
-    // Create log entry for end
     const endEntry = document.createElement('div');
     endEntry.className = 'log-entry';
     endEntry.dataset.id = logId;
@@ -523,12 +623,10 @@ function endCurrentActivity() {
     `;
     activityLog.prepend(endEntry);
     
-    // Reset current activity
     currentActivity = null;
     activityStartTime = null;
 }
 
-// End current activity if page is closed
 window.addEventListener('beforeunload', function() {
     if (currentActivity) {
         endCurrentActivity();
@@ -550,7 +648,6 @@ function deleteLogEntry(logId) {
 }
 
 
-// Sample initial log entry
 const welcomeEntry = document.createElement('div');
 welcomeEntry.className = 'log-entry';
 welcomeEntry.dataset.id = 'welcome';
@@ -561,75 +658,146 @@ welcomeEntry.innerHTML = `
 activityLog.appendChild(welcomeEntry);
 let savedLogs = JSON.parse(localStorage.getItem('puppyLogs')) || [];
 
-// Add this function to save logs to localStorage
 function saveLogs() {
     const logEntries = Array.from(document.querySelectorAll('.log-entry')).map(entry => entry.innerHTML);
     savedLogs = logEntries;
     localStorage.setItem('puppyLogs', JSON.stringify(savedLogs));
-    alert('Logs saved successfully!');
 }
 
-// Add this function to export logs as a styled sheet
 function exportLogs() {
-    // Get current date for filename
     const today = new Date();
     const dateString = today.toISOString().split('T')[0];
     
-    // Create HTML content with the same styling
+    const logEntries = Array.from(document.querySelectorAll('.log-entry')).map(entry => {
+        return {
+            id: entry.dataset.id,
+            html: entry.innerHTML
+        };
+    });
+
+
+    const tableRows = logEntries.map(entry => {
+        const tempDiv = document.createElement('div');
+        tempDiv.innerHTML = entry.html;
+        const textContent = tempDiv.textContent.replace('×', '').trim();
+        
+        const parts = textContent.split('Started:').length > 1 ? 
+            ['Started', textContent.split('Started:')[1].trim()] :
+            textContent.split('Ended:').length > 1 ?
+            ['Ended', textContent.split('Ended:')[1].trim()] :
+            ['Note', textContent];
+        
+        return `
+            <tr>
+                <td>${formatDate(new Date())}</td>
+                <td>${parts[0]}</td>
+                <td>${parts[1]}</td>
+            </tr>
+        `;
+    }).join('');
+
     const htmlContent = `
     <!DOCTYPE html>
     <html>
     <head>
         <title>Matty's Activity Log - ${dateString}</title>
         <style>
+            @import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+            
             body {
                 font-family: 'VT323', monospace;
                 background-color: #f5e9d9;
                 color: #5a3921;
-                max-width: 800px;
+                max-width: 1000px;
                 margin: 0 auto;
                 padding: 20px;
-                font-size: 20px;
+                font-size: 18px;
             }
             h1 {
                 text-align: center;
                 color: #8b5a2b;
                 text-shadow: 2px 2px 0px #d4a76a;
                 font-size: 2.5rem;
+                margin-bottom: 20px;
             }
-            .log-container {
+            .log-table {
+                width: 100%;
+                border-collapse: collapse;
+                margin: 20px 0;
                 background-color: #f0e0c0;
                 border: 3px solid #d4a76a;
-                border-radius: 5px;
-                padding: 15px;
-                margin-top: 20px;
+                border-radius: 10px;
+                overflow: hidden;
                 box-shadow: 5px 5px 0px #d4a76a;
             }
-            .log-title {
-                font-weight: bold;
-                margin-bottom: 10px;
-                font-size: 1.5rem;
+            .log-table th {
+                background-color: #d4a76a;
+                color: #5a3921;
+                padding: 12px;
+                text-align: left;
+                font-size: 1.3rem;
+                border-bottom: 3px solid #8b5a2b;
             }
-            .log-entry {
-                margin-bottom: 10px;
-                padding: 8px;
-                border-bottom: 1px dotted #d4a76a;
+            .log-table td {
+                padding: 12px;
+                border-bottom: 1px solid #d4a76a;
+                vertical-align: top;
             }
-            @import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+            .log-table tr:last-child td {
+                border-bottom: none;
+            }
+            .log-table tr:nth-child(even) {
+                background-color: #f9e5c0;
+            }
+            .footer {
+                text-align: center;
+                margin-top: 20px;
+                color: #8b5a2b;
+                font-size: 1rem;
+            }
+            @media print {
+                body {
+                    background-color: white;
+                    color: black;
+                }
+                .log-table {
+                    box-shadow: none;
+                    border: 1px solid #ddd;
+                }
+            }
         </style>
     </head>
     <body>
         <h1>Matty's Activity Log</h1>
-        <div class="log-container">
-            <div class="log-title">Full History (${dateString})</div>
-            ${savedLogs.join('')}
+        <table class="log-table">
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Type</th>
+                    <th>Activity</th>
+                </tr>
+            </thead>
+            <tbody>
+                ${tableRows}
+            </tbody>
+        </table>
+        <div class="footer">
+            Generated on ${today.toLocaleDateString('en-US', { 
+                weekday: 'long', 
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric',
+                timeZone: 'America/New_York'
+            })} at ${today.toLocaleTimeString('en-US', {
+                hour: '2-digit',
+                minute: '2-digit',
+                timeZone: 'America/New_York'
+            })}
         </div>
     </body>
     </html>
     `;
-    
-    
-    // Create download link
+
     const blob = new Blob([htmlContent], { type: 'text/html' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
@@ -640,14 +808,6 @@ function exportLogs() {
     document.body.removeChild(a);
     URL.revokeObjectURL(url);
 }
-
-// Update your beforeunload event to save logs automatically
-window.addEventListener('beforeunload', function() {
-    if (currentActivity) {
-        endCurrentActivity();
-    }
-    saveLogs(); // Auto-save when leaving
-});
 
 function cleanOldLogs(daysToKeep = 7) {
     const cutoff = new Date();

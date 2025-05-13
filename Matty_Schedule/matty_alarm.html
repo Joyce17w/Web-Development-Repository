@@ -9,16 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="matty_style.css">
 </head>
-<body>
-    <!DOCTYPE html>
-    <html>
-    <head>
-        <title>A Day in Matty's Life</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="matty_style.css">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    </head>
+
     <body>
         <div class="logo-links">
             <a href="https://app.bondvet.com/home" title="BondVet" target="_blank" rel="noopener noreferrer">
@@ -29,6 +20,11 @@
             <a href="https://customer.spotpet.com/portal/#/home" title="Spot Insurance" target="_blank" rel="noopener noreferrer">
                 <div class="logo-circle spot-logo-circle">
                     <img src="Spot_Primary_Logo.png" alt="SpotInsurance" class="mini-logo spot-logo"> 
+                </div>
+            </a>
+            <a href="https://www.chewy.com/" title="Chewy" target="_blank" rel="noopener noreferrer">
+                <div class="logo-circle">
+                    <img src="62b2028d8309c32ce1623dfb.png" alt="chewy" class="mini-logo"> 
                 </div>
             </a>
         </div>
@@ -75,8 +71,6 @@
         </div>
 
 
-
-
     <h1>MATTY'S PUPPY SCHEDULE</h1>
 
     <div class="puppy-container">
@@ -87,7 +81,7 @@
 
     <div class="alarm-container">
         <div class="alarm-display" id="next-alarm">💩 Time to potty: --:-- --</div>
-        <button class="alarm-btn" id="toggle-alarm">🔔 Enable Alarms</button>
+        <button class="alarm-btn" id="toggle-alarm">🔔 Enable Alarm</button>
     </div>
 
     <div class="schedule-grid">
@@ -110,7 +104,18 @@
         <button class="activity-btn" onclick="saveLogs()" style="background-color: #8b5a2b;">💾 Save Logs</button>
         <button class="activity-btn" onclick="exportLogs()" style="background-color: #8b5a2b;">📄 Export Sheet</button>
     </div>
-
+    <div class="media-section">
+        <h2 style="text-align: center; color: #8b5a2b;">📸 Matty's Media Gallery</h2>
+        
+        <div class="media-upload">
+            <input type="file" id="media-upload" accept="image/*,video/*" multiple>
+            <label for="media-upload">📁 Choose Files</label>
+            <input type="text" id="media-caption" placeholder="Caption (e.g., 'Matty at the park')" class="pixel-input">
+            <small style="text-align: center; color: #8b5a2b;">You can upload multiple files at once</small>
+        </div>
+        
+        <div class="media-grid" id="media-grid"></div>
+    </div>
     <script src="./matty.js"></script>
 </body>
 </html>
